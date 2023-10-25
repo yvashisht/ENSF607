@@ -135,31 +135,26 @@ Dependency Inversion Principle:
 	@startuml
 	
 	interface Product {
-	+ isAvaliable(): boolean
-	+ purchase()
-	+ OutOfStock()
-	}
-	
-	class ProductController {
-	  - product: Product
-	  + ProductController(product: Product)
-	  + control()
+	  +isAvailable(): boolean
+	  +purchase()
+	  +notifyOutOfStock()
 	}
 	
 	class WarehouseProduct {
-	  + isAvailable(): boolean
-	  + purchase()
-	  + OutOfStock()
+	  -available: boolean
+	  +WarehouseProduct(name: String, price: double)
+	  +isAvailable(): boolean
+	  +purchase()
+	  +notifyOutOfStock()
 	}
 	
-	class SaleProduct {
-	  + isAvailable(): boolean
-	  + purchase()
-	  + OutOfStock()
+	class ProductController {
+	  -product: Product
+	  +ProductController(product: Product)
+	  +control()
 	}
 	
 	Product <|.. WarehouseProduct
-	Product <|.. SaleProduct
 	ProductController --> Product
 	
 	@enduml
